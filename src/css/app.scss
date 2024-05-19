@@ -1,0 +1,61 @@
+// app global css in SCSS form
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+$sidebar-width: 400px;
+
+:root {
+  --main-color: #191b1f;
+  --secondary-color: #0d1116;
+  --third-color: #2e2f36;
+  --text-color: #dcdde4;
+  --accent-color: #f5a747;
+  --sidebar-width: $sidebar-width;
+  background-color: var(--main-color);
+}
+
+input, select, textarea{
+  color: var(--text-color);
+}
+
+.sidebar {
+  position: fixed;
+  width: $sidebar-width;
+  background-color: var(--secondary-color);
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.page {
+  background-color: var(--main-color);
+  height: 100%;
+  width: calc(100% - #{$sidebar-width});
+  padding-left: $sidebar-width;
+}
+
+.application {
+  position: fixed;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.no-select {
+  user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
