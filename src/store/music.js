@@ -32,6 +32,10 @@ const actions = {
         this.audio.load()
       } else {
         this.audio = new Audio(result.url)
+        this.audio.onended = () => {
+          this.isPlaying = false
+          this.song = []
+        }
       }
       this.audio.play()
       this.isPlaying = !this.audio.paused
