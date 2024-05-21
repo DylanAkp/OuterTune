@@ -27,7 +27,7 @@ export default {
     <CategoryTitle class="artist" :title="artist"></CategoryTitle>
     <div class="control-btns">
       <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-backward"></q-icon>
-      <q-icon v-if="!isPlaying" class="ctrl-btn" size="20px" name="fa-solid fa-play"></q-icon>
+      <q-icon v-if="!isPlaying" class="ctrl-btn" size="20px" name="fa-solid fa-play" @click="playMusic"></q-icon>
       <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
       <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward"></q-icon>
     </div>
