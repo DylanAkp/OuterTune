@@ -25,7 +25,7 @@ const actions = {
       console.error(error)
     }
   },
-  async playMusic (id, eraseQueue = true) {
+  async playMusic (id, eraseQueue = false) {
     try {
       if (eraseQueue) {
         this.queue = []
@@ -77,13 +77,13 @@ const actions = {
   playNext () {
     if (this.currentQueueIndex < this.queue.length - 1) {
       this.currentQueueIndex++
-      this.playMusic(this.queue[this.currentQueueIndex], false)
+      this.playMusic(this.queue[this.currentQueueIndex])
     }
   },
   playPrevious () {
     if (this.currentQueueIndex > 0) {
       this.currentQueueIndex--
-      this.playMusic(this.queue[this.currentQueueIndex], false)
+      this.playMusic(this.queue[this.currentQueueIndex])
     }
   }
 }

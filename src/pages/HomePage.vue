@@ -20,7 +20,7 @@ const results = computed(() => musicStore.results)
         :title="result.title"
         :artist="result.artists[0].name"
         :artwork="result.artworks[result.artworks.length - 1].url"
-        @click="musicStore.playMusic(result.id)"
+        @click="musicStore.playMusic(result.id, true)"
       />
     </div>
   </div>
