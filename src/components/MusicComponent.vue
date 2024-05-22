@@ -2,8 +2,9 @@
   <div class="music-container" @mouseover="hovering = true" @mouseleave="hovering = false">
     <div class="artwork-container">
       <div v-if="loading" class="artwork-loader"></div>
-      <img v-show="!loading" class="artwork" :src="props.artwork" alt="Music Artwork" @load="loading = false">
-      <q-icon name="fas fa-play" class="play-button" v-show="hovering"></q-icon>
+      <img v-show="!loading" class="artwork" :src="props.artwork" alt="Music Artwork" @error="loading = true" @load="loading = false">
+      <q-icon name="fas fa-play" class="icon play-button" v-show="hovering" @click="musicStore.playMusic(props.id, true)"></q-icon>
+      <q-icon :name="shareIcon" class="icon share-button" v-show="hovering" @click="copyToClipboard(`https://music.youtube.com/watch?v=${props.id}`)"></q-icon>
     </div>
     <div class="music-info">
       <div class="title" :class="{ 'scroll': isOverflowingTitle && hovering }" ref="titleRef">{{ props.title }}</div>
@@ -14,6 +15,19 @@
 
 <script setup>
 import { ref, watchEffect } from 'vue'
+import { useMusicStore } from 'src/store/music.js'
+
+const musicStore = useMusicStore()
+
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text)
+  shareIcon.value = 'fas fa-check'
+  setTimeout(() => {
+    shareIcon.value = 'fas fa-link'
+  }, 1000)
+}
+
+const shareIcon = ref('fas fa-link')
 
 const props = defineProps({
   artwork: String,
@@ -39,6 +53,10 @@ watchEffect(async () => {
 </script>
 
 <style scoped>
+.icon {
+  cursor: pointer;
+}
+
 .artwork-loader {
   width: 200px;
   height: 200px;
@@ -74,6 +92,15 @@ watchEffect(async () => {
   color: white;
   z-index: 2;
   display: none;
+}
+
+.share-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: white;
+  z-index: 2;
 }
 
 .music-container:hover .play-button {
@@ -119,7 +146,6 @@ watchEffect(async () => {
   height: 260px;
   background-color: var(--secondary-color);
   border-radius: 20px;
-  cursor: pointer;
   position: relative;
 }
 </style>
