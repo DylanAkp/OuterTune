@@ -31,6 +31,13 @@ const actions = {
       const relatives = await window.ytmusic.getRelatives(id)
       this.queue.push(...relatives.map(rel => rel.id))
       this.currentQueueIndex = 0
+    } else if (this.currentQueueIndex === this.queue.length - 1) {
+      const relatives = await window.ytmusic.getRelatives(id)
+      this.queue.push(...relatives.map(rel => rel.id))
+    }
+    if (this.queue.length > 500) {
+      const Remove = this.queue.length - 500
+      this.queue.splice(0, Remove)
     }
   },
   async playMusic (id, eraseQueue = false) {
