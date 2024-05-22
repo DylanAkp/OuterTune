@@ -25,18 +25,21 @@ const actions = {
       console.error(error)
     }
   },
+  async getSuggestions (id) {
+    if (this.queue.length === 0) {
+      this.queue.push(id)
+      const relatives = await window.ytmusic.getRelatives(id)
+      this.queue.push(...relatives.map(rel => rel.id))
+      this.currentQueueIndex = 0
+    }
+  },
   async playMusic (id, eraseQueue = false) {
     try {
       if (eraseQueue) {
         this.queue = []
       }
       await this.setSong(id)
-      if (this.queue.length === 0) {
-        this.queue.push(id)
-        const relatives = await window.ytmusic.getRelatives(id)
-        this.queue.push(...relatives.map(rel => rel.id))
-        this.currentQueueIndex = 0
-      }
+      await this.getSuggestions(id)
       const result = await window.ytmusic.download(id, 'mp3')
       if (this.audio) {
         this.audio.src = result.url
