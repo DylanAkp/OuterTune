@@ -71,3 +71,13 @@ ipcMain.handle('getSong', async (event, id) => {
     throw error
   }
 })
+
+ipcMain.handle('getRelatives', async (event, id) => {
+  try {
+    const relatives = await searchManager.relative(id)
+    return JSON.parse(JSON.stringify(relatives))
+  } catch (error) {
+    console.error('Get Relatives Error:', error)
+    throw error
+  }
+})

@@ -4,7 +4,9 @@ const state = () => ({
   audio: null,
   results: [],
   song: [],
-  isPlaying: false
+  isPlaying: false,
+  queue: [],
+  currentQueueIndex: -1
 })
 
 const getters = {
@@ -23,10 +25,19 @@ const actions = {
       console.error(error)
     }
   },
-  async playMusic (id) {
+  async playMusic (id, eraseQueue = true) {
     try {
-      const result = await window.ytmusic.download(id, 'mp3')
+      if (eraseQueue) {
+        this.queue = []
+      }
       await this.setSong(id)
+      if (this.queue.length === 0) {
+        this.queue.push(id)
+        const relatives = await window.ytmusic.getRelatives(id)
+        this.queue.push(...relatives.map(rel => rel.id))
+        this.currentQueueIndex = 0
+      }
+      const result = await window.ytmusic.download(id, 'mp3')
       if (this.audio) {
         this.audio.src = result.url
         this.audio.load()
@@ -35,6 +46,7 @@ const actions = {
         this.audio.onended = () => {
           this.isPlaying = false
           this.song = []
+          this.playNext()
         }
       }
       this.audio.play()
@@ -55,6 +67,23 @@ const actions = {
       this.results = results
     } catch (error) {
       console.error(error)
+    }
+  },
+  addToQueue (id) {
+    if (!this.queue.includes(id)) {
+      this.queue.push(id)
+    }
+  },
+  playNext () {
+    if (this.currentQueueIndex < this.queue.length - 1) {
+      this.currentQueueIndex++
+      this.playMusic(this.queue[this.currentQueueIndex], false)
+    }
+  },
+  playPrevious () {
+    if (this.currentQueueIndex > 0) {
+      this.currentQueueIndex--
+      this.playMusic(this.queue[this.currentQueueIndex], false)
     }
   }
 }

@@ -15,7 +15,9 @@ export default {
       title: computed(() => musicStore.song && musicStore.song.title ? musicStore.song.title : 'Nothing is playing'),
       artist: computed(() => musicStore.song && musicStore.song.artists && musicStore.song.artists.length > 0 ? musicStore.song.artists[0].name : ''),
       artwork: computed(() => musicStore.song && musicStore.song.artworks && musicStore.song.artworks.length > 0 ? musicStore.song.artworks[musicStore.song.artworks.length - 1].url : ''),
-      playMusic: () => musicStore.pauseManager()
+      playMusic: () => musicStore.pauseManager(),
+      previous: () => musicStore.playPrevious(),
+      next: () => musicStore.playNext()
     }
   }
 }
@@ -26,10 +28,10 @@ export default {
     <CategoryTitle class="music-title" :title="title"></CategoryTitle>
     <CategoryTitle class="artist" :title="artist"></CategoryTitle>
     <div class="control-btns">
-      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-backward"></q-icon>
+      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-backward" @click="previous"></q-icon>
       <q-icon v-if="!isPlaying" class="ctrl-btn" size="20px" name="fa-solid fa-play" @click="playMusic"></q-icon>
       <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
-      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward"></q-icon>
+      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward" @click="next"></q-icon>
     </div>
   </div>
 </template>

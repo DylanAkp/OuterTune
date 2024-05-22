@@ -38,5 +38,8 @@ contextBridge.exposeInMainWorld('ytmusic', {
   },
   getSong: (id) => {
     return ipcRenderer.invoke('getSong', id)
+  },
+  getRelatives: (id) => {
+    return ipcRenderer.invoke('getRelatives', id)
   }
 })
