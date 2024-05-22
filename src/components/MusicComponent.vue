@@ -1,7 +1,7 @@
 <template>
   <div class="music-container" @mouseover="hovering = true" @mouseleave="hovering = false">
     <div class="artwork-container">
-      <img class="artwork" :src="props.artwork" alt="Music Artwork">
+      <img class="artwork" :src="props.artwork" onerror="javascript:this.src='/src/assets/error.svg'" alt="Music Artwork">
       <q-icon name="fas fa-play" class="play-button" v-show="hovering"></q-icon>
     </div>
     <div class="music-info">
