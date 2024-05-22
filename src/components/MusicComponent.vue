@@ -1,7 +1,8 @@
 <template>
   <div class="music-container" @mouseover="hovering = true" @mouseleave="hovering = false">
     <div class="artwork-container">
-      <img class="artwork" :src="props.artwork" onerror="javascript:this.src='/src/assets/error.svg'" alt="Music Artwork">
+      <div v-if="loading" class="artwork-loader"></div>
+      <img v-show="!loading" class="artwork" :src="props.artwork" alt="Music Artwork" @load="loading = false">
       <q-icon name="fas fa-play" class="play-button" v-show="hovering"></q-icon>
     </div>
     <div class="music-info">
@@ -24,6 +25,7 @@ const props = defineProps({
 const isOverflowingTitle = ref(false)
 const isOverflowingArtist = ref(false)
 const hovering = ref(false)
+const loading = ref(true)
 
 const titleRef = ref(null)
 const artistRef = ref(null)
@@ -37,6 +39,20 @@ watchEffect(async () => {
 </script>
 
 <style scoped>
+.artwork-loader {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .artwork-container {
   position: relative;
 }
