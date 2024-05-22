@@ -13,6 +13,17 @@ body {
 
 $sidebar-width: 400px;
 
+.widget {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--third-color);
+  padding: 15px;
+  margin: 5px;
+}
+
 :root {
   --main-color: #191b1f;
   --secondary-color: #0d1116;

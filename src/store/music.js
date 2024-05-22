@@ -6,13 +6,36 @@ const state = () => ({
   song: [],
   isPlaying: false,
   queue: [],
-  currentQueueIndex: -1
+  currentQueueIndex: -1,
+  duration: 0,
+  currentTime: 0,
+  volume: 1
 })
 
 const getters = {
 }
 
 const actions = {
+  updateDuration () {
+    if (this.audio) {
+      this.duration = this.audio.duration
+    }
+  },
+  setCurrentTime (time) {
+    if (this.audio) {
+      this.audio.currentTime = time * this.audio.duration
+    }
+  },
+  updateCurrentTime () {
+    if (this.audio) {
+      this.currentTime = this.audio.currentTime
+    }
+  },
+  updateVolume () {
+    if (this.audio) {
+      this.volume = this.audio.volume
+    }
+  },
   setVolume (volume) {
     if (this.audio) {
       this.audio.volume = volume
@@ -60,6 +83,13 @@ const actions = {
         }
       }
       this.audio.play()
+      this.audio.ontimeupdate = () => {
+        this.updateCurrentTime()
+      }
+      this.audio.onloadedmetadata = () => {
+        this.updateDuration()
+        this.updateVolume()
+      }
       this.isPlaying = !this.audio.paused
     } catch (error) {
       console.error(error)

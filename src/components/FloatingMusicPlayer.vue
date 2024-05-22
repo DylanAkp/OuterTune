@@ -1,26 +1,19 @@
-<script>
-import { computed } from 'vue'
+<script setup>
 import CategoryTitle from './CategoryTitle.vue'
+import { computed } from 'vue'
 import { useMusicStore } from 'src/store/music.js'
+import DurationSlider from './DurationSlider.vue'
 
-export default {
-  components: {
-    CategoryTitle
-  },
-  setup () {
-    const musicStore = useMusicStore()
+const musicStore = useMusicStore()
 
-    return {
-      isPlaying: computed(() => musicStore.isPlaying),
-      title: computed(() => musicStore.song && musicStore.song.title ? musicStore.song.title : 'Nothing is playing'),
-      artist: computed(() => musicStore.song && musicStore.song.artists && musicStore.song.artists.length > 0 ? musicStore.song.artists[0].name : ''),
-      artwork: computed(() => musicStore.song && musicStore.song.artworks && musicStore.song.artworks.length > 0 ? musicStore.song.artworks[musicStore.song.artworks.length - 1].url : ''),
-      playMusic: () => musicStore.pauseManager(),
-      previous: () => musicStore.playPrevious(),
-      next: () => musicStore.playNext()
-    }
-  }
-}
+const playMusic = () => musicStore.pauseManager()
+const previous = () => musicStore.playPrevious()
+const next = () => musicStore.playNext()
+
+const isPlaying = computed(() => musicStore.isPlaying)
+const title = computed(() => musicStore.song && musicStore.song.title ? musicStore.song.title : 'Nothing is playing')
+const artist = computed(() => musicStore.song && musicStore.song.artists && musicStore.song.artists.length > 0 ? musicStore.song.artists[0].name : '')
+const artwork = computed(() => musicStore.song && musicStore.song.artworks && musicStore.song.artworks.length > 0 ? musicStore.song.artworks[musicStore.song.artworks.length - 1].url : '')
 </script>
 
 <template>
@@ -33,10 +26,16 @@ export default {
       <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
       <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward" @click="next"></q-icon>
     </div>
+    <DurationSlider v-if="isPlaying" class="duration"/>
   </div>
 </template>
 
 <style scoped>
+
+.duration {
+  width: 85%;
+}
+
 .music-title {
   font-size: 20px;
   font-weight: bold;
@@ -46,7 +45,6 @@ export default {
 
 .artist {
   font-size: 16px;
-  margin-bottom: 10px;
   font-weight: 600;
   background-color: var(--third-color);
 }
@@ -73,9 +71,7 @@ export default {
   justify-content: space-evenly;
   background-size: cover;
   background-color: var(--third-color);
-  width: 340px;
-  height: 200px;
-  padding: 20px 50px;
+  height: 220px;
   border-radius: 25px;
 }
 </style>
