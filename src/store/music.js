@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia'
 
+const MAX_QUEUE_LENGTH = 500
+const MAX_RETRIES = 3
+
 const state = () => ({
   audio: null,
   results: [],
@@ -54,12 +57,12 @@ const actions = {
       const relatives = await window.ytmusic.getRelatives(id)
       this.queue.push(...relatives.map(rel => rel.id))
     }
-    if (this.queue.length > 500) {
-      const Remove = this.queue.length - 500
+    if (this.queue.length > MAX_QUEUE_LENGTH) {
+      const Remove = this.queue.length - MAX_QUEUE_LENGTH
       this.queue.splice(0, Remove)
     }
   },
-  async playMusic (id, eraseQueue = false) {
+  async playMusic (id, eraseQueue = false, retryCount = 0) {
     try {
       if (eraseQueue) {
         this.queue = []
@@ -73,7 +76,7 @@ const actions = {
         this.audio = new Audio(result.url)
       }
       this.audio.load()
-      this.audio.play()
+      await this.audio.play()
       this.audio.ontimeupdate = () => {
         this.updateCurrentTime()
       }
@@ -87,7 +90,17 @@ const actions = {
       }
       this.isPlaying = !this.audio.paused
     } catch (error) {
-      console.error(error)
+      await this.handleRetries(error, id, eraseQueue, retryCount)
+    }
+  },
+  async handleRetries (error, id, eraseQueue, retryCount) {
+    console.log(error)
+    if (error.name === 'NotSupportedError' || error.message.includes('interrupted by a new load request')) {
+      if (retryCount <= MAX_RETRIES) {
+        await this.playMusic(id, eraseQueue, retryCount + 1)
+      } else {
+        this.playNext()
+      }
     }
   },
   pauseManager () {
