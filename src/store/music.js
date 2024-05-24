@@ -16,9 +16,10 @@ const getters = {
 }
 
 const actions = {
-  updateDuration () {
+  updateAudioMetadata () {
     if (this.audio) {
       this.duration = this.audio.duration
+      this.volume = this.audio.volume
     }
   },
   setCurrentTime (time) {
@@ -29,11 +30,6 @@ const actions = {
   updateCurrentTime () {
     if (this.audio) {
       this.currentTime = this.audio.currentTime
-    }
-  },
-  updateVolume () {
-    if (this.audio) {
-      this.volume = this.audio.volume
     }
   },
   setVolume (volume) {
@@ -73,22 +69,21 @@ const actions = {
       const result = await window.ytmusic.download(id, 'mp3')
       if (this.audio) {
         this.audio.src = result.url
-        this.audio.load()
       } else {
         this.audio = new Audio(result.url)
-        this.audio.onended = () => {
-          this.isPlaying = false
-          this.song = []
-          this.playNext()
-        }
       }
+      this.audio.load()
       this.audio.play()
       this.audio.ontimeupdate = () => {
         this.updateCurrentTime()
       }
       this.audio.onloadedmetadata = () => {
-        this.updateDuration()
-        this.updateVolume()
+        this.updateAudioMetadata()
+      }
+      this.audio.onended = () => {
+        this.isPlaying = false
+        this.song = []
+        this.playNext()
       }
       this.isPlaying = !this.audio.paused
     } catch (error) {
