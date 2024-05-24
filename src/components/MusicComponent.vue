@@ -127,7 +127,7 @@ watchEffect(async () => {
 }
 
 @keyframes scroll {
-  0% { text-indent: 100% }
+  0% { text-indent: 0 }
   100% { text-indent: -100% }
 }
 
