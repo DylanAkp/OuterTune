@@ -9,7 +9,6 @@ const musicStore = useMusicStore()
 const playMusic = () => musicStore.pauseManager()
 const previous = () => musicStore.playPrevious()
 const next = () => musicStore.playNext()
-
 const isPlaying = computed(() => musicStore.isPlaying)
 const title = computed(() => musicStore.song && musicStore.song.title ? musicStore.song.title : 'Nothing is playing')
 const artist = computed(() => musicStore.song && musicStore.song.artists && musicStore.song.artists.length > 0 ? musicStore.song.artists[0].name : '')
@@ -26,7 +25,7 @@ const artwork = computed(() => musicStore.song && musicStore.song.artworks && mu
       <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
       <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward" @click="next"></q-icon>
     </div>
-    <DurationSlider v-if="isPlaying" class="duration"/>
+    <DurationSlider class="duration"/>
   </div>
 </template>
 
