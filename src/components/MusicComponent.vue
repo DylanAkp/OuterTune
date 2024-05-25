@@ -2,13 +2,13 @@
   <div class="music-container" @mouseover="hovering = true" @mouseleave="hovering = false">
     <div class="artwork-container">
       <div v-if="loading" class="artwork-loader"></div>
-      <img v-show="!loading" class="artwork" :src="props.artwork" alt="Music Artwork" @error="loading = true" @load="loading = false">
-      <q-icon name="fas fa-play" class="icon play-button" v-show="hovering" @click="musicStore.playMusic(props.id, true)"></q-icon>
-      <q-icon :name="shareIcon" class="icon share-button" v-show="hovering" @click="copyToClipboard(`https://music.youtube.com/watch?v=${props.id}`)"></q-icon>
+      <img v-show="!loading" class="artwork" :src="song.artworks.find(artwork => artwork.width >= 200)?.url || song.artworks[0]?.url" alt="Music Artwork" @error="loading = true" @load="loading = false">
+      <q-icon name="fas fa-play" class="icon play-button" v-show="hovering" @click="musicStore.playMusic(song, true)"></q-icon>
+      <q-icon :name="shareIcon" class="icon share-button" v-show="hovering" @click="copyToClipboard(`https://music.youtube.com/watch?v=${song.id}`)"></q-icon>
     </div>
     <div class="music-info">
-      <div class="title" :class="{ 'scroll': isOverflowingTitle && hovering }" ref="titleRef">{{ props.title }}</div>
-      <div class="artist" :class="{ 'scroll': isOverflowingArtist && hovering }" ref="artistRef">{{ props.artist }}</div>
+      <div class="title" :class="{ 'scroll': isOverflowingTitle && hovering }" ref="titleRef">{{ song.title }}</div>
+      <div class="artist" :class="{ 'scroll': isOverflowingArtist && hovering }" ref="artistRef">{{ song.artists[0].name }}</div>
     </div>
   </div>
 </template>
@@ -29,22 +29,21 @@ const copyToClipboard = (text) => {
 
 const shareIcon = ref('fas fa-link')
 
-const props = defineProps({
-  artwork: String,
-  title: String,
-  artist: String,
-  id: String
+defineProps({
+  song: {
+    type: Object,
+    required: true
+  }
 })
 
 const isOverflowingTitle = ref(false)
 const isOverflowingArtist = ref(false)
 const hovering = ref(false)
 const loading = ref(true)
-
 const titleRef = ref(null)
 const artistRef = ref(null)
 
-watchEffect(async () => {
+watchEffect(() => {
   if (titleRef.value && artistRef.value) {
     isOverflowingTitle.value = titleRef.value.offsetWidth < titleRef.value.scrollWidth
     isOverflowingArtist.value = artistRef.value.offsetWidth < artistRef.value.scrollWidth

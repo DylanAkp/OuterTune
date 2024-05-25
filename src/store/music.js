@@ -43,33 +43,35 @@ const actions = {
   async setSong (id) {
     try {
       this.song = await window.ytmusic.getSong(id)
+      return this.song
     } catch (error) {
       console.error(error)
     }
   },
-  async getSuggestions (id) {
+  async getSuggestions (song) {
     if (this.queue.length === 0) {
-      this.queue.push(id)
-      const relatives = await window.ytmusic.getRelatives(id)
-      this.queue.push(...relatives.map(rel => rel.id))
+      this.queue.push(song)
+      const relatives = await window.ytmusic.getRelatives(song.id)
+      this.queue.push(...relatives)
       this.currentQueueIndex = 0
     } else if (this.currentQueueIndex === this.queue.length - 1) {
-      const relatives = await window.ytmusic.getRelatives(id)
-      this.queue.push(...relatives.map(rel => rel.id))
+      const relatives = await window.ytmusic.getRelatives(song.id)
+      this.queue.push(...relatives)
     }
     if (this.queue.length > MAX_QUEUE_LENGTH) {
       const Remove = this.queue.length - MAX_QUEUE_LENGTH
       this.queue.splice(0, Remove)
     }
   },
-  async playMusic (id, eraseQueue = false, retryCount = 0) {
+  async playMusic (song, eraseQueue = false, retryCount = 0) {
     try {
       if (eraseQueue) {
         this.queue = []
       }
-      await this.setSong(id)
-      await this.getSuggestions(id)
-      const result = await window.ytmusic.download(id, 'mp3')
+      console.log(song)
+      await this.setSong(song.id)
+      await this.getSuggestions(song)
+      const result = await window.ytmusic.download(song.id, 'mp3')
       if (this.audio) {
         this.audio.src = result.url
       } else {
@@ -90,14 +92,14 @@ const actions = {
       }
       this.isPlaying = !this.audio.paused
     } catch (error) {
-      await this.handleRetries(error, id, eraseQueue, retryCount)
+      await this.handleRetries(error, song, eraseQueue, retryCount)
     }
   },
-  async handleRetries (error, id, eraseQueue, retryCount) {
+  async handleRetries (error, song, eraseQueue, retryCount) {
     console.log(error)
     if (error.name === 'NotSupportedError' || error.message.includes('interrupted by a new load request')) {
       if (retryCount <= MAX_RETRIES) {
-        await this.playMusic(id, eraseQueue, retryCount + 1)
+        await this.playMusic(song, eraseQueue, retryCount + 1)
       } else {
         this.playNext()
       }
@@ -117,9 +119,9 @@ const actions = {
       console.error(error)
     }
   },
-  addToQueue (id) {
-    if (!this.queue.includes(id)) {
-      this.queue.push(id)
+  addToQueue (song) {
+    if (!this.queue.includes(song)) {
+      this.queue.push(song)
     }
   },
   playNext () {

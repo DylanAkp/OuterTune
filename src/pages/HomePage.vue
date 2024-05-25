@@ -16,11 +16,8 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
     <div class="music-results">
       <MusicComponent
         v-for="(result, index) in resultsMusics"
+        :song="result"
         :key="index"
-        :title="result.title"
-        :artist="result.artists[0].name"
-        :artwork="result.artworks[result.artworks.length - 1].url"
-        :id="result.id"
       />
     </div>
   </div>
