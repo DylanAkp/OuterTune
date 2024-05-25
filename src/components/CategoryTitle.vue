@@ -1,12 +1,12 @@
 <template>
-  <div class="category-title" :title="props.title">
-    {{ props.title }}
+  <div class="category-title" :title="title">
+    {{ title }}
   </div>
 
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   title: String
 })
 </script>
