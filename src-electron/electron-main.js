@@ -43,9 +43,9 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.handle('search', async (event, query) => {
+ipcMain.handle('search', async (event, query, type) => {
   try {
-    const response = await searchManager.search(query, 'MUSIC', true)
+    const response = await searchManager.search(query, type, true)
     return JSON.parse(JSON.stringify(response))
   } catch (error) {
     console.error('Search Error:', error)

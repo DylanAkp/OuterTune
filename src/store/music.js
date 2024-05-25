@@ -5,7 +5,7 @@ const MAX_RETRIES = 3
 
 const state = () => ({
   audio: null,
-  results: [],
+  resultsMusics: [],
   song: [],
   isPlaying: false,
   queue: [],
@@ -111,8 +111,8 @@ const actions = {
   },
   async search (query) {
     try {
-      const results = await window.ytmusic.search(query)
-      this.results = results
+      const musicResults = await window.ytmusic.search(query, 'MUSIC')
+      this.resultsMusics = musicResults
     } catch (error) {
       console.error(error)
     }

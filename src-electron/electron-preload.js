@@ -30,8 +30,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld('ytmusic', {
-  search: (query) => {
-    return ipcRenderer.invoke('search', query)
+  search: (query, type) => {
+    return ipcRenderer.invoke('search', query, type)
   },
   download: (id, format) => {
     return ipcRenderer.invoke('download', id, format)

@@ -6,16 +6,16 @@ import { useMusicStore } from 'src/store/music.js'
 import CategoryTitle from 'src/components/CategoryTitle.vue'
 
 const musicStore = useMusicStore()
-const results = computed(() => musicStore.results)
+const resultsMusics = computed(() => musicStore.resultsMusics)
 </script>
 
 <template>
   <div class="homepage">
     <SearchBar />
-    <CategoryTitle v-if="results.length != 0" class="margin-bottom" title="Songs" />
+    <CategoryTitle v-if="resultsMusics.length != 0" class="margin-bottom" title="Songs" />
     <div class="music-results">
       <MusicComponent
-        v-for="(result, index) in results"
+        v-for="(result, index) in resultsMusics"
         :key="index"
         :title="result.title"
         :artist="result.artists[0].name"
