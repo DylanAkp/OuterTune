@@ -38,12 +38,7 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
   width: 100%;
   margin-left: 50px;
   margin-top: 50px;
-  scrollbar-width: none;
   padding-bottom: 70px;
   overflow: auto;
-}
-
-.homepage::-webkit-scrollbar {
-  display: none;
 }
 </style>

@@ -13,6 +13,27 @@ body {
 
 $sidebar-width: 400px;
 
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--third-color);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
 .widget {
   border-radius: 20px;
   display: flex;
