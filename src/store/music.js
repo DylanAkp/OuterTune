@@ -19,6 +19,11 @@ const getters = {
 }
 
 const actions = {
+  replaceQueue (queue) {
+    this.queue = queue
+    this.currentQueueIndex = 0
+    this.playMusic(this.queue[this.currentQueueIndex])
+  },
   updateAudioMetadata () {
     if (this.audio) {
       this.duration = this.audio.duration
@@ -68,7 +73,6 @@ const actions = {
       if (eraseQueue) {
         this.queue = []
       }
-      console.log(song)
       await this.setSong(song.id)
       await this.getSuggestions(song)
       const result = await window.youtube.download(song.id, 'mp3')

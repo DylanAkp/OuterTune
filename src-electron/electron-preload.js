@@ -63,6 +63,9 @@ contextBridge.exposeInMainWorld('playlist', {
   removeSong: (name, songId) => {
     return ipcRenderer.invoke('removeSong', { name, songId })
   },
+  isSongInPlaylist: (name, songId) => {
+    return ipcRenderer.invoke('isSongInPlaylist', { name, songId })
+  },
   exportPlaylist: (name) => {
     return ipcRenderer.invoke('exportPlaylist', name)
   },

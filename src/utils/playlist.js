@@ -1,69 +1,69 @@
+import { useMusicStore } from 'src/store/music'
+
 const LIKED_SONGS = 'Liked Songs'
 
 // Playlists
 
-function getPlaylists () {
+export function getPlaylists () {
   return window.playlist.getPlaylists()
 }
 
 // Playlist
 
-function getPlaylist (playlist) {
+export async function setPlaylist (playlistName) {
+  const musicStore = useMusicStore()
+  const playlist = await getPlaylist(playlistName).then((playlist) => {
+    musicStore.replaceQueue(playlist)
+  })
+  return playlist
+}
+
+export function getPlaylist (playlist) {
   return window.playlist.getPlaylist(playlist)
 }
 
-function getLikedSongs () {
+export function getLikedSongs () {
   return window.playlist.getPlaylist(LIKED_SONGS)
 }
 
-function createPlaylist (name) {
+export function createPlaylist (name) {
   return window.playlist.createPlaylist(name)
 }
 
-function deletePlaylist (playlist) {
+export function deletePlaylist (playlist) {
   return window.playlist.deletePlaylist(playlist)
 }
 
 // Songs
 
-function likeSong (song) {
-  return window.playlist.addSong(LIKED_SONGS, song)
+export function likeSong (song) {
+  return window.playlist.addSong(LIKED_SONGS, JSON.parse(JSON.stringify(song)))
 }
 
-function unlikeSong (song) {
-  return window.playlist.unlikeSong(LIKED_SONGS, song)
+export function unlikeSong (song) {
+  return window.playlist.removeSong(LIKED_SONGS, JSON.parse(JSON.stringify(song)))
 }
 
-function addSong (playlist, song) {
+export function addSong (playlist, song) {
+  console.log('playlist', playlist)
+  console.log('song', song)
   return window.playlist.addSong(playlist, song)
 }
 
-function removeSong (playlist, song) {
+export function removeSong (playlist, song) {
   return window.playlist.removeSong(playlist, song)
+}
+
+export function isSongInPlaylist (playlist, songid) {
+  return window.playlist.isSongInPlaylist(playlist, songid)
 }
 
 // Get JSON
 
-function exportPlaylist (playlist, name) {
+export function exportPlaylist (playlist, name) {
   return window.playlist.exportPlaylist(playlist, name)
 }
 
-function importPlaylist (name) {
+export function importPlaylist (name) {
   return window.playlist.importPlaylist(name)
-}
-
-// Export
-
-export default {
-  getLikedSongs,
-  likeSong,
-  unlikeSong,
-  getPlaylists,
-  getPlaylist,
-  createPlaylist,
-  deletePlaylist,
-  addSong,
-  removeSong,
-  exportPlaylist,
-  importPlaylist
 }

@@ -30,11 +30,17 @@ ipcMain.handle('getPlaylists', (event, arg) => {
 
 // PlayList
 
+ipcMain.handle('isSongInPlaylist', (event, { name, songId }) => {
+  if (playlists[name] && Array.isArray(playlists[name])) {
+    return playlists[name].some(song => song.id === songId)
+  }
+  return false
+})
+
 ipcMain.handle('getPlaylist', (event, name) => {
   if (!playlists[name]) {
     playlists[name] = []
   }
-  console.log(playlists)
   return playlists[name]
 })
 
@@ -55,8 +61,11 @@ ipcMain.handle('deletePlaylist', (event, name) => {
 
 ipcMain.handle('addSong', (event, { name, song }) => {
   if (playlists[name]) {
-    playlists[name].push(song)
-    savePlaylists()
+    const songExists = playlists[name].some(existingSong => existingSong.id === song.id)
+    if (!songExists) {
+      playlists[name].push(song)
+      savePlaylists()
+    }
   }
 })
 
