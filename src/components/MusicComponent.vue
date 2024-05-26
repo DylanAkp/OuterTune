@@ -9,6 +9,7 @@
     <div class="music-info">
       <div class="title" :class="{ 'scroll': isOverflowingTitle && hovering }" ref="titleRef">{{ song.title }}</div>
       <div class="artist" :class="{ 'scroll': isOverflowingArtist && hovering }" ref="artistRef">{{ song.artists[0].name }}</div>
+      <q-icon v-if="isDeletable" class="icon delete-button" name="delete" @click="$emit('remove', song)"/>
     </div>
   </div>
 </template>
@@ -33,6 +34,10 @@ defineProps({
   song: {
     type: Object,
     required: true
+  },
+  isDeletable: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -52,6 +57,14 @@ watchEffect(() => {
 </script>
 
 <style scoped>
+.delete-button {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  font-size: 20px;
+  color: red;
+}
+
 .icon {
   cursor: pointer;
 }

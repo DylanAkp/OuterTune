@@ -1,7 +1,7 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { getPlaylist } from 'src/utils/playlist.js'
+import { getPlaylist, removeSong } from 'src/utils/playlist.js'
 import MusicComponent from 'src/components/MusicComponent.vue'
 import CategoryTitle from 'src/components/CategoryTitle.vue'
 
@@ -9,9 +9,14 @@ const route = useRoute()
 const playlistName = computed(() => route.params.playlistName)
 const songs = ref([])
 
-watch(playlistName, async (newPlaylistName) => {
-  songs.value = await getPlaylist(newPlaylistName)
-}, { immediate: true })
+const removeSongFromPlaylist = async (song) => {
+  await removeSong(playlistName.value, song.id)
+  songs.value = await getPlaylist(playlistName.value)
+}
+
+watchEffect(async () => {
+  songs.value = await getPlaylist(playlistName.value)
+})
 
 </script>
 
@@ -22,7 +27,7 @@ watch(playlistName, async (newPlaylistName) => {
       <CategoryTitle :title="playlistName"/>
     </div>
     <div class="music-results">
-      <MusicComponent v-for="(song, index) in songs" :key="index" :song="song"/>
+      <MusicComponent v-for="(song, index) in songs" :isDeletable="true" :key="index" :song="song" @remove="removeSongFromPlaylist"/>
     </div>
   </div>
 </template>

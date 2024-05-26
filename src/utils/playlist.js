@@ -50,8 +50,8 @@ export function addSong (playlist, song) {
   return window.playlist.addSong(playlist, song)
 }
 
-export function removeSong (playlist, song) {
-  return window.playlist.removeSong(playlist, song)
+export function removeSong (playlist, songId) {
+  return window.playlist.removeSong(playlist, songId)
 }
 
 export function isSongInPlaylist (playlist, songid) {
