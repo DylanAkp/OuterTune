@@ -8,51 +8,39 @@ function loadPlaylists () {
     const data = fs.readFileSync('playlists.json')
     playlists = JSON.parse(data)
   }
+  if (!playlists['Liked Songs']) {
+    playlists['Liked Songs'] = []
+    savePlaylists()
+  }
 }
 
 function savePlaylists () {
-  fs.writeFileSync('playlists.json', JSON.stringify(playlists, null, 2))
+  const orderedPlaylists = { 'Liked Songs': playlists['Liked Songs'], ...playlists }
+  fs.writeFileSync('playlists.json', JSON.stringify(orderedPlaylists, null, 2))
 }
 
 loadPlaylists()
 
-// Getters
+// Playlists
 
-ipcMain.handle('getAllPlaylists', (event, arg) => {
-  return playlists
+ipcMain.handle('getPlaylists', (event, arg) => {
+  const orderedPlaylists = { 'Liked Songs': playlists['Liked Songs'], ...playlists }
+  return orderedPlaylists
 })
 
+// PlayList
+
 ipcMain.handle('getPlaylist', (event, name) => {
+  if (!playlists[name]) {
+    playlists[name] = []
+  }
+  console.log(playlists)
   return playlists[name]
 })
 
-ipcMain.handle('getLikedSongs', (event, arg) => {
-  return playlists['Liked Songs']
-})
-
-// Setters
-
 ipcMain.handle('createPlaylist', (event, name) => {
+  if (playlists[name]) return
   playlists[name] = []
-  savePlaylists()
-})
-
-ipcMain.handle('addSongToPlaylist', (event, { name, song }) => {
-  if (playlists[name]) {
-    playlists[name].push(song)
-    savePlaylists()
-  }
-})
-
-ipcMain.handle('addLikedSong', (event, song) => {
-  playlists['Liked Songs'].push(song)
-  savePlaylists()
-})
-
-// Deleters
-
-ipcMain.handle('deleteLikedSong', (event, songId) => {
-  playlists['Liked Songs'] = playlists['Liked Songs'].filter(song => song.id !== songId)
   savePlaylists()
 })
 
@@ -63,7 +51,16 @@ ipcMain.handle('deletePlaylist', (event, name) => {
   }
 })
 
-ipcMain.handle('deleteSongFromPlaylist', (event, { name, songId }) => {
+// Songs
+
+ipcMain.handle('addSong', (event, { name, song }) => {
+  if (playlists[name]) {
+    playlists[name].push(song)
+    savePlaylists()
+  }
+})
+
+ipcMain.handle('removeSong', (event, { name, songId }) => {
   if (playlists[name]) {
     playlists[name] = playlists[name].filter(song => song.id !== songId)
     savePlaylists()

@@ -45,32 +45,23 @@ contextBridge.exposeInMainWorld('youtube', {
 })
 
 contextBridge.exposeInMainWorld('playlist', {
-  getAllPlaylists: () => {
-    return ipcRenderer.invoke('getAllPlaylists')
+  getPlaylists: () => {
+    return ipcRenderer.invoke('getPlaylists')
   },
   getPlaylist: (name) => {
     return ipcRenderer.invoke('getPlaylist', name)
   },
-  getLikedSongs: () => {
-    return ipcRenderer.invoke('getLikedSongs')
-  },
   createPlaylist: (name) => {
     return ipcRenderer.invoke('createPlaylist', name)
   },
-  addSongToPlaylist: (name, song) => {
-    return ipcRenderer.invoke('addSongToPlaylist', { name, song })
-  },
-  addLikedSong: (song) => {
-    return ipcRenderer.invoke('addLikedSong', song)
-  },
-  deleteLikedSong: (songId) => {
-    return ipcRenderer.invoke('deleteLikedSong', songId)
+  addSong: (name, song) => {
+    return ipcRenderer.invoke('addSong', { name, song })
   },
   deletePlaylist: (name) => {
     return ipcRenderer.invoke('deletePlaylist', name)
   },
-  deleteSongFromPlaylist: (name, songId) => {
-    return ipcRenderer.invoke('deleteSongFromPlaylist', { name, songId })
+  removeSong: (name, songId) => {
+    return ipcRenderer.invoke('removeSong', { name, songId })
   },
   exportPlaylist: (name) => {
     return ipcRenderer.invoke('exportPlaylist', name)

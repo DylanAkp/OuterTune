@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from 'electron'
-import './utils/youtube'
-import './utils/playlist'
+import './ipc/youtube'
+import './ipc/playlist'
 import path from 'path'
 import os from 'os'
 
@@ -11,9 +11,7 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({
     icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
-    width: 1000,
     minWidth: 1000,
-    height: 600,
     minHeight: 600,
     useContentSize: true,
     autoHideMenuBar: true,
@@ -24,6 +22,7 @@ function createWindow () {
   })
 
   mainWindow.loadURL(process.env.APP_URL)
+  mainWindow.maximize()
 
   mainWindow.on('closed', () => {
     mainWindow = null
