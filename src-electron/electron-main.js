@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import './utils/youtube'
+import './utils/playlist'
 import path from 'path'
 import os from 'os'
 

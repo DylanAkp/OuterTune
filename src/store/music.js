@@ -42,7 +42,7 @@ const actions = {
   },
   async setSong (id) {
     try {
-      this.song = await window.ytmusic.getSong(id)
+      this.song = await window.youtube.getSong(id)
       return this.song
     } catch (error) {
       console.error(error)
@@ -51,11 +51,11 @@ const actions = {
   async getSuggestions (song) {
     if (this.queue.length === 0) {
       this.queue.push(song)
-      const relatives = await window.ytmusic.getRelatives(song.id)
+      const relatives = await window.youtube.getRelatives(song.id)
       this.queue.push(...relatives)
       this.currentQueueIndex = 0
     } else if (this.currentQueueIndex === this.queue.length - 1) {
-      const relatives = await window.ytmusic.getRelatives(song.id)
+      const relatives = await window.youtube.getRelatives(song.id)
       this.queue.push(...relatives)
     }
     if (this.queue.length > MAX_QUEUE_LENGTH) {
@@ -71,7 +71,7 @@ const actions = {
       console.log(song)
       await this.setSong(song.id)
       await this.getSuggestions(song)
-      const result = await window.ytmusic.download(song.id, 'mp3')
+      const result = await window.youtube.download(song.id, 'mp3')
       if (this.audio) {
         this.audio.src = result.url
       } else {
@@ -113,7 +113,7 @@ const actions = {
   },
   async search (query) {
     try {
-      const musicResults = await window.ytmusic.search(query, 'MUSIC')
+      const musicResults = await window.youtube.search(query, 'MUSIC')
       this.resultsMusics = musicResults
     } catch (error) {
       console.error(error)

@@ -29,7 +29,7 @@
  */
 import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('ytmusic', {
+contextBridge.exposeInMainWorld('youtube', {
   search: (query, type) => {
     return ipcRenderer.invoke('search', query, type)
   },
@@ -41,5 +41,41 @@ contextBridge.exposeInMainWorld('ytmusic', {
   },
   getRelatives: (id) => {
     return ipcRenderer.invoke('getRelatives', id)
+  }
+})
+
+contextBridge.exposeInMainWorld('playlist', {
+  getAllPlaylists: () => {
+    return ipcRenderer.invoke('getAllPlaylists')
+  },
+  getPlaylist: (name) => {
+    return ipcRenderer.invoke('getPlaylist', name)
+  },
+  getLikedSongs: () => {
+    return ipcRenderer.invoke('getLikedSongs')
+  },
+  createPlaylist: (name) => {
+    return ipcRenderer.invoke('createPlaylist', name)
+  },
+  addSongToPlaylist: (name, song) => {
+    return ipcRenderer.invoke('addSongToPlaylist', { name, song })
+  },
+  addLikedSong: (song) => {
+    return ipcRenderer.invoke('addLikedSong', song)
+  },
+  deleteLikedSong: (songId) => {
+    return ipcRenderer.invoke('deleteLikedSong', songId)
+  },
+  deletePlaylist: (name) => {
+    return ipcRenderer.invoke('deletePlaylist', name)
+  },
+  deleteSongFromPlaylist: (name, songId) => {
+    return ipcRenderer.invoke('deleteSongFromPlaylist', { name, songId })
+  },
+  exportPlaylist: (name) => {
+    return ipcRenderer.invoke('exportPlaylist', name)
+  },
+  importPlaylist: (name, filePath) => {
+    return ipcRenderer.invoke('importPlaylist', { name, filePath })
   }
 })
