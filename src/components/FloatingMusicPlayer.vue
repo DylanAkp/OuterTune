@@ -88,14 +88,9 @@ const copyToClipboard = (text) => {
 
 <style scoped>
 
-.custom-dialog .q-dialog__inner {
-  border-radius: 15px;
-  background-color: var(--main-color);
-}
-
 .custom-dialog .q-card {
   border-radius: 25px;
-  background-color: var(--secondary-color);
+  background-color: var(--main-color);
 }
 
 .custom-dialog .q-btn {
