@@ -3,7 +3,7 @@
     <input
       class="search-input"
       type="text"
-      placeholder="Search for music"
+      placeholder="Search"
       v-model="query"
       @keyup.enter="searchMusic"
       :disabled="isLoading"
