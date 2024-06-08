@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import HorizontalSidebar from 'src/components/HorizontalSidebar.vue'
+import LeftSidebar from 'src/components/LeftSidebar.vue'
 import { version } from '../../package.json'
 
 const checkForUpdates = ref(false)
@@ -22,8 +22,10 @@ onMounted(async () => {
 
 <template>
   <div class="application">
-    <HorizontalSidebar class="sidebar no-select" />
-    <RouterView class="page"/>
+    <LeftSidebar class="sidebar no-select" />
+    <div class="main-content-wrapper">
+      <RouterView class="main-content"/>
+    </div>
   </div>
   <q-dialog v-model="checkForUpdates" persistent class="custom-dialog">
     <q-card>

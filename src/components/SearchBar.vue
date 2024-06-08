@@ -67,6 +67,6 @@ async function searchMusic () {
   gap: 10px;
   justify-content: center;
   align-items: center;
-  margin: 10px auto 50px;
+  margin: auto;
 }
 </style>

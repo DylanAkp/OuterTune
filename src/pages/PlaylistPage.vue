@@ -21,8 +21,8 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="homepage">
-    <div class="nav margin-bottom">
+  <div>
+    <div class="nav">
       <q-icon name="fa-solid fa-arrow-left" @click="$router.push('/')" class="back-btn"/>
       <CategoryTitle :title="playlistName"/>
     </div>
@@ -33,6 +33,7 @@ watchEffect(async () => {
 </template>
 
 <style scoped>
+
 .back-btn {
   cursor: pointer;
   background-color: var(--third-color);
@@ -52,17 +53,5 @@ watchEffect(async () => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 30px;
-}
-
-.homepage {
-  width: 100%;
-  margin-left: 50px;
-  margin-top: 50px;
-  padding-bottom: 70px;
-  overflow: auto;
-}
-
-.margin-bottom {
-  margin-bottom: 30px;
 }
 </style>

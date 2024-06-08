@@ -10,9 +10,9 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
 </script>
 
 <template>
-  <div class="homepage">
-    <SearchBar />
-    <CategoryTitle v-if="resultsMusics.length != 0" class="margin-bottom" title="Songs" />
+  <div>
+    <SearchBar/>
+    <CategoryTitle v-if="resultsMusics.length != 0" title="Songs" />
     <div class="music-results">
       <MusicComponent
         v-for="(result, index) in resultsMusics"
@@ -24,21 +24,12 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
 </template>
 
 <style>
-.margin-bottom {
-  margin-bottom: 20px;
-}
 
 .music-results {
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
-}
-
-.homepage {
-  width: 100%;
-  margin-left: 50px;
-  margin-top: 50px;
-  padding-bottom: 70px;
-  overflow: auto;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 0));
+  gap: 20px;
+  justify-content: space-around;
 }
 </style>

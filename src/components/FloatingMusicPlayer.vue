@@ -147,7 +147,7 @@ const copyToClipboard = (text) => {
   background-size: cover;
   background-color: var(--third-color);
   height: 220px;
-  width: 340px;
+  width: 100%;
   border-radius: 25px;
 }
 </style>

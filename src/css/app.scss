@@ -2,23 +2,29 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
+// General CSS
+
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-.title {
-  font-weight: 600;
+:root {
+  --main-color: #191b1f;
+  --secondary-color: #0d1116;
+  --third-color: #2e2f36;
+  --text-color: #dcdde4;
+  --accent-color: #f5a747;
+  --sidebar-width: $sidebar-width;
+  background-color: var(--main-color);
   color: var(--text-color);
 }
-
-$sidebar-width: 400px;
 
 *::-webkit-scrollbar {
   width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--secondary-color);
+  background: var(--main-color);
 }
 
 *::-webkit-scrollbar-thumb {
@@ -34,6 +40,28 @@ $sidebar-width: 400px;
   display: none;
 }
 
+input, select, textarea{
+  color: var(--text-color);
+}
+
+.no-select {
+  user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+// Variables
+
+$sidebar-width: 400px;
+$app-margin: 10px;
+
+// Components
+
+.title {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
 .widget {
   border-radius: 20px;
   display: flex;
@@ -45,22 +73,7 @@ $sidebar-width: 400px;
   margin: 5px;
 }
 
-:root {
-  --main-color: #191b1f;
-  --secondary-color: #0d1116;
-  --third-color: #2e2f36;
-  --text-color: #dcdde4;
-  --accent-color: #f5a747;
-  --sidebar-width: $sidebar-width;
-  background-color: var(--main-color);
-}
-
-input, select, textarea{
-  color: var(--text-color);
-}
-
 .sidebar {
-  position: fixed;
   width: $sidebar-width;
   background-color: var(--secondary-color);
   height: 100%;
@@ -68,26 +81,32 @@ input, select, textarea{
   border-bottom-right-radius: 25px;
 }
 
-.page {
-  background-color: var(--main-color);
-  height: 100%;
-  width: calc(100% - #{$sidebar-width});
-  padding-left: $sidebar-width;
-}
-
 .application {
   position: fixed;
-  color: var(--text-color);
   display: flex;
   flex-direction: row;
-  left: 0;
-  top: 0;
+  gap: $app-margin;
+  margin-top: $app-margin;
+  margin-bottom: $app-margin;
+  height: calc(100vh - #{$app-margin * 2});
   width: 100vw;
-  height: 100vh;
 }
 
-.no-select {
-  user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
+// Main content (routerview)
+
+.main-content-wrapper {
+  position: relative;
+  background-color: var(--main-color);
+  height: 100%;
+  width: calc(100% - $sidebar-width);
+  min-width: 500px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.main-content {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
