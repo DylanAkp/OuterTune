@@ -61,29 +61,31 @@ const copyToClipboard = (text) => {
 </script>
 
 <template>
-  <div class="floating-player" :style="{ backgroundImage: `url(${artwork})` }">
-    <CategoryTitle class="music-title" :title="title"></CategoryTitle>
-    <CategoryTitle class="artist" :title="artist"></CategoryTitle>
-    <div class="control-btns">
-      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-backward" @click="previous"></q-icon>
-      <q-icon v-if="!isPlaying" class="ctrl-btn" size="20px" name="fa-solid fa-play" @click="playMusic"></q-icon>
-      <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
-      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward" @click="next"></q-icon>
+  <div>
+    <div class="floating-player" :style="{ backgroundImage: `url(${artwork})` }">
+      <CategoryTitle class="music-title" :title="title"></CategoryTitle>
+      <CategoryTitle class="artist" :title="artist"></CategoryTitle>
+      <div class="control-btns">
+        <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-backward" @click="previous"></q-icon>
+        <q-icon v-if="!isPlaying" class="ctrl-btn" size="20px" name="fa-solid fa-play" @click="playMusic"></q-icon>
+        <q-icon v-else class="ctrl-btn" size="20px" name="fa-solid fa-pause" @click="playMusic"></q-icon>
+        <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-forward" @click="next"></q-icon>
+      </div>
+      <DurationSlider class="duration"/>
     </div>
-    <DurationSlider class="duration"/>
+    <div class="control-btns bottom-btns" v-if="artist != ''">
+      <q-icon class="ctrl-btn" size="20px" :color="likedColor" name="fa-solid fa-heart" @click="toggleLike"></q-icon>
+      <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-plus" @click="openDialog"></q-icon>
+      <q-icon class="ctrl-btn" size="20px" :name="shareIcon" @click="copyToClipboard(`https://music.youtube.com/watch?v=${musicStore.song.id}`)"></q-icon>
+    </div>
+    <q-dialog v-model="showDialog" class="custom-dialog">
+      <q-card>
+        <q-card-section class="column q-gutter-sm">
+          <q-btn v-for="(playlist, index) in playlists" :key="index" :label="playlist.name" @click="addSongToPlaylist(playlist.name)"></q-btn>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
-  <div class="control-btns bottom-btns" v-if="artist != ''">
-    <q-icon class="ctrl-btn" size="20px" :color="likedColor" name="fa-solid fa-heart" @click="toggleLike"></q-icon>
-    <q-icon class="ctrl-btn" size="20px" name="fa-solid fa-plus" @click="openDialog"></q-icon>
-    <q-icon class="ctrl-btn" size="20px" :name="shareIcon" @click="copyToClipboard(`https://music.youtube.com/watch?v=${musicStore.song.id}`)"></q-icon>
-  </div>
-  <q-dialog v-model="showDialog" class="custom-dialog">
-    <q-card>
-      <q-card-section class="column q-gutter-sm">
-        <q-btn v-for="(playlist, index) in playlists" :key="index" :label="playlist.name" @click="addSongToPlaylist(playlist.name)"></q-btn>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
 </template>
 
 <style scoped>
