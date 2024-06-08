@@ -13,7 +13,7 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
   <div>
     <SearchBar/>
     <CategoryTitle v-if="resultsMusics.length != 0" title="Songs" />
-    <div class="music-results">
+    <div class="music-grid">
       <MusicComponent
         v-for="(result, index) in resultsMusics"
         :song="result"
@@ -24,12 +24,4 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
 </template>
 
 <style>
-
-.music-results {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 0));
-  gap: 20px;
-  justify-content: space-around;
-}
 </style>

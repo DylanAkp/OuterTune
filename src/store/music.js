@@ -3,11 +3,14 @@ import { defineStore } from 'pinia'
 const MAX_QUEUE_LENGTH = 500
 const MAX_RETRIES = 3
 
+const history = localStorage.getItem('history')
+
 const state = () => ({
   audio: null,
   resultsMusics: [],
   song: [],
   isPlaying: false,
+  history: history ? JSON.parse(history) : [],
   queue: [],
   currentQueueIndex: -1,
   duration: 0,
@@ -19,6 +22,10 @@ const getters = {
 }
 
 const actions = {
+  saveHistory () {
+    const history = this.history.slice(-100)
+    localStorage.setItem('history', JSON.stringify(history))
+  },
   replaceQueue (queue) {
     this.queue = queue
     this.currentQueueIndex = 0
@@ -83,6 +90,8 @@ const actions = {
       }
       this.audio.load()
       await this.audio.play()
+      this.history.push(song)
+      this.saveHistory()
       this.audio.ontimeupdate = () => {
         this.updateCurrentTime()
       }
@@ -98,6 +107,13 @@ const actions = {
     } catch (error) {
       await this.handleRetries(error, song, eraseQueue, retryCount)
     }
+  },
+  getHistory () {
+    return this.history
+  },
+  clearHistory () {
+    this.history = []
+    this.saveHistory()
   },
   async handleRetries (error, song, eraseQueue, retryCount) {
     console.log(error)

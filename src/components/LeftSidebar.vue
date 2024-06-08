@@ -7,7 +7,8 @@ import VolumeSlider from 'src/components/VolumeSlider.vue'
 const routes = [
   { name: 'Home', icon: 'fa-solid fa-home', path: '/' },
   { name: 'Search', icon: 'fa-solid fa-search', path: '/search' },
-  { name: 'Playlists', icon: 'fa-solid fa-list', path: '/playlists' }
+  { name: 'Playlists', icon: 'fa-solid fa-list', path: '/playlists' },
+  { name: 'History', icon: 'fa-solid fa-history', path: '/history' }
 ]
 </script>
 

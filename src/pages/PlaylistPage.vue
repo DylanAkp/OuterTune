@@ -26,7 +26,7 @@ watchEffect(async () => {
       <q-icon name="fa-solid fa-arrow-left" @click="$router.push('/')" class="back-btn"/>
       <CategoryTitle :title="playlistName"/>
     </div>
-    <div class="music-results">
+    <div class="music-grid">
       <MusicComponent v-for="(song, index) in songs" :isDeletable="true" :key="index" :song="song" @remove="removeSongFromPlaylist"/>
     </div>
   </div>
@@ -47,11 +47,5 @@ watchEffect(async () => {
   gap: 20px;
   align-items: center;
   margin-bottom: 30px;
-}
-
-.music-results {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
 }
 </style>
