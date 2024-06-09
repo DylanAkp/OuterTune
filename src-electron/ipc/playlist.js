@@ -1,11 +1,14 @@
 import { ipcMain } from 'electron'
 import fs from 'fs'
+import path from 'path'
+import os from 'os'
 
 let playlists = {}
+const playlistsFilePath = path.join(os.homedir(), 'playlists.json')
 
 function loadPlaylists () {
-  if (fs.existsSync('playlists.json')) {
-    const data = fs.readFileSync('playlists.json')
+  if (fs.existsSync(playlistsFilePath)) {
+    const data = fs.readFileSync(playlistsFilePath)
     playlists = JSON.parse(data)
   }
   if (!playlists['Liked Songs']) {
@@ -16,7 +19,7 @@ function loadPlaylists () {
 
 function savePlaylists () {
   const orderedPlaylists = { 'Liked Songs': playlists['Liked Songs'], ...playlists }
-  fs.writeFileSync('playlists.json', JSON.stringify(orderedPlaylists, null, 2))
+  fs.writeFileSync(playlistsFilePath, JSON.stringify(orderedPlaylists, null, 2))
 }
 
 loadPlaylists()
