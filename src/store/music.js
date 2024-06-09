@@ -90,7 +90,7 @@ const actions = {
       }
       this.audio.load()
       await this.audio.play()
-      this.history.push(song)
+      this.history.unshift(song)
       this.saveHistory()
       this.audio.ontimeupdate = () => {
         this.updateCurrentTime()

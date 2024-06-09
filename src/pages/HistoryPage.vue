@@ -10,7 +10,7 @@ const history = ref([])
 
 onMounted(() => {
   history.value = []
-  history.value = musicStore.getHistory().reverse()
+  history.value = musicStore.getHistory()
 })
 
 const clearHistory = () => {

@@ -11,7 +11,7 @@ const liked = ref([])
 
 watchEffect(async () => {
   liked.value = await getPlaylist('Liked Songs')
-  lastPlayed.value = musicStore.getHistory().reverse()
+  lastPlayed.value = musicStore.getHistory()
 })
 
 </script>
