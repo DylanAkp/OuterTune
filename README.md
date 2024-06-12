@@ -1,3 +1,8 @@
+
+## 🚧 IMPORTANT 🚧
+
+## Due to YouTube API changes recently, OuterTune might not work, I'll do my best to update it as soon as possible.
+
 # OuterTune
 
 <div align="center">
