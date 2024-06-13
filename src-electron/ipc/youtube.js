@@ -1,9 +1,9 @@
-import { searchManager, downloadManager } from 'ytmusic_api_unofficial'
+import { get, download, search } from 'ytmusic_api_unofficial'
 import { ipcMain } from 'electron'
 
-ipcMain.handle('search', async (event, query, type) => {
+ipcMain.handle('search', async (event, query, type = null) => {
   try {
-    const response = await searchManager.search(query, type, true)
+    const response = await search(query, type)
     return JSON.parse(JSON.stringify(response))
   } catch (error) {
     console.error('Search Error:', error)
@@ -13,7 +13,7 @@ ipcMain.handle('search', async (event, query, type) => {
 
 ipcMain.handle('download', async (event, id) => {
   try {
-    return await downloadManager.download(id, 'mp3')
+    return JSON.parse(JSON.stringify(await download(id, 'webm')))
   } catch (error) {
     console.error('Download Error:', error)
     throw error
@@ -22,7 +22,7 @@ ipcMain.handle('download', async (event, id) => {
 
 ipcMain.handle('getSong', async (event, id) => {
   try {
-    const song = await searchManager.get(id)
+    const song = await get(id)
     return JSON.parse(JSON.stringify(song))
   } catch (error) {
     console.error('Get Song Error:', error)
@@ -32,7 +32,8 @@ ipcMain.handle('getSong', async (event, id) => {
 
 ipcMain.handle('getRelatives', async (event, id) => {
   try {
-    const relatives = await searchManager.relative(id)
+    const music = await get(id)
+    const relatives = await music.getRadioPlaylist()
     return JSON.parse(JSON.stringify(relatives))
   } catch (error) {
     console.error('Get Relatives Error:', error)

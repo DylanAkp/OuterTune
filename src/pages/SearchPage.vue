@@ -15,7 +15,7 @@ const resultsMusics = computed(() => musicStore.resultsMusics)
     <CategoryTitle v-if="resultsMusics.length != 0" title="Songs" />
     <div class="music-grid">
       <MusicComponent
-        v-for="(result, index) in resultsMusics"
+        v-for="(result, index) in resultsMusics.content"
         :song="result"
         :key="index"
       />
