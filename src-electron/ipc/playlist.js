@@ -4,7 +4,13 @@ import path from 'path'
 import os from 'os'
 
 let playlists = {}
-const playlistsFilePath = path.join(os.homedir(), 'playlists.json')
+const outerTuneDir = path.join(os.homedir(), 'OuterTune')
+
+if (!fs.existsSync(outerTuneDir)) {
+  fs.mkdirSync(outerTuneDir)
+}
+
+const playlistsFilePath = path.join(outerTuneDir, 'Playlists.json')
 
 function loadPlaylists () {
   if (fs.existsSync(playlistsFilePath)) {
