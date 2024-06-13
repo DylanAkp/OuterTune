@@ -26,6 +26,11 @@ const isLoading = ref(false)
 
 async function searchMusic () {
   if (!query.value) return
+  // Update the URL query parameter
+  const url = new URL(window.location.href)
+  url.searchParams.set('q', query.value)
+  window.history.pushState({}, '', url)
+
   isLoading.value = true
   await musicStore.search(query.value).then(() => {
     isLoading.value = false

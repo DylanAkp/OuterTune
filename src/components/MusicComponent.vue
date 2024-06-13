@@ -2,7 +2,7 @@
   <div class="music-container" @mouseover="hovering = true" @mouseleave="hovering = false">
     <div class="artwork-container">
       <div v-if="loading" class="artwork-loader"></div>
-      <img v-show="!loading" class="artwork" :src="song.artworks.find(artwork => artwork.width >= 200)?.url || song.artworks[0]?.url" alt="Music Artwork" @error="loading = true" @load="loading = false">
+      <img v-show="!loading" class="artwork" :src="song.thumbnails.find(artwork => artwork.width >= 200)?.url || song.thumbnails[0]?.url" alt="Music Artwork" @error="loading = true" @load="loading = false">
       <q-icon name="fas fa-play" class="icon play-button" v-show="hovering" @click="musicStore.playMusic(song, true)"></q-icon>
       <q-icon :name="shareIcon" class="icon share-button" v-show="hovering" @click="copyToClipboard(`https://music.youtube.com/watch?v=${song.id}`)"></q-icon>
     </div>

@@ -64,7 +64,7 @@ const actions = {
     if (this.queue.length === 0) {
       this.queue.push(song)
       const relatives = await window.youtube.getRelatives(song.id)
-      this.queue.push(...relatives)
+      this.queue.push(...relatives.musics)
       this.currentQueueIndex = 0
     } else if (this.currentQueueIndex === this.queue.length - 1) {
       const relatives = await window.youtube.getRelatives(song.id)
@@ -84,9 +84,9 @@ const actions = {
       await this.getSuggestions(song)
       const result = await window.youtube.download(song.id, 'mp3')
       if (this.audio) {
-        this.audio.src = result.url
+        this.audio.src = result.urlDecoded
       } else {
-        this.audio = new Audio(result.url)
+        this.audio = new Audio(result.urlDecoded)
       }
       this.audio.load()
       await this.audio.play()
@@ -133,7 +133,7 @@ const actions = {
   },
   async search (query) {
     try {
-      const musicResults = await window.youtube.search(query, 'MUSIC')
+      const musicResults = await window.youtube.search(query, 'song')
       this.resultsMusics = musicResults
     } catch (error) {
       console.error(error)

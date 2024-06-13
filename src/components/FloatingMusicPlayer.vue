@@ -29,7 +29,7 @@ const next = () => musicStore.playNext()
 const isPlaying = computed(() => musicStore.isPlaying)
 const title = computed(() => musicStore.song && musicStore.song.title ? musicStore.song.title : 'Nothing is playing')
 const artist = computed(() => musicStore.song && musicStore.song.artists && musicStore.song.artists.length > 0 ? musicStore.song.artists[0].name : '')
-const artwork = computed(() => musicStore.song && musicStore.song.artworks && musicStore.song.artworks.length > 0 ? musicStore.song.artworks[musicStore.song.artworks.length - 1].url : '')
+const artwork = computed(() => musicStore.song && musicStore.song.thumbnails && musicStore.song.thumbnails.length > 0 ? musicStore.song.thumbnails[musicStore.song.thumbnails.length - 1].url : '')
 const shareIcon = ref('fas fa-link')
 const liked = ref(false)
 
