@@ -6,6 +6,12 @@
 
 OuterTune is a music player for both Windows and Linux. With a focus on design and functionality, OuterTune goal is to be a solid alternative to your streaming services without any ads.
 
+<div align="center">
+    <a href="https://github.com/DylanAkp/OuterTune/releases/latest">
+        <img src="res/download.png" alt="Download Button" width="200">
+    </a>
+</div>
+
 ## Installation
 
 Download [latest release](https://github.com/DylanAkp/OuterTune/releases/latest) or build it yourself using above commands
