@@ -24,6 +24,8 @@ function createWindow () {
   mainWindow.loadURL(process.env.APP_URL)
   mainWindow.maximize()
 
+  mainWindow.webContents.openDevTools(process.env.NODE_ENV === 'development')
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
