@@ -45,8 +45,6 @@ export function unlikeSong (song) {
 }
 
 export function addSong (playlist, song) {
-  console.log('playlist', playlist)
-  console.log('song', song)
   return window.playlist.addSong(playlist, song)
 }
 
