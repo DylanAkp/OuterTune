@@ -18,7 +18,7 @@
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
-    "ytmusic_api_unofficial": "^2.0.0-beta.1.6.1"
+    "ytmusic_api_unofficial": "^2.0.0-beta.1.6.9"
   },
   "devDependencies": {
     "@electron/packager": "^18.3.2",
