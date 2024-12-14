@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OuterTune", "OuterTune\OuterTune.vcxproj", "{5DDC1753-A50C-4246-8BDF-5D9D59A19992}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmberTune", "EmberTune\EmberTune.vcxproj", "{5DDC1753-A50C-4246-8BDF-5D9D59A19992}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F7D32BD0-2749-483E-9A0D-1635EF7E3136} = {F7D32BD0-2749-483E-9A0D-1635EF7E3136}
 	EndProjectSection

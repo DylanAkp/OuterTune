@@ -7,8 +7,8 @@
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{5ddc1753-a50c-4246-8bdf-5d9d59a19992}</ProjectGuid>
-    <ProjectName>OuterTune</ProjectName>
-    <RootNamespace>OuterTune</RootNamespace>
+    <ProjectName>EmberTune</ProjectName>
+    <RootNamespace>EmberTune</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -78,7 +78,7 @@
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppInstallerUri>https://github.com/dylanakp/outertune</AppInstallerUri>
+    <AppInstallerUri>https://github.com/dylanakp/embertune</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <ItemDefinitionGroup>

@@ -11,7 +11,7 @@ using namespace xaml::Controls;
 using namespace xaml::Navigation;
 
 using namespace Windows::ApplicationModel;
-namespace winrt::OuterTune::implementation
+namespace winrt::EmberTune::implementation
 {
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of
@@ -90,4 +90,4 @@ void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs cons
     throw hresult_error(E_FAIL, hstring(L"Failed to load Page ") + e.SourcePageType().Name);
 }
 
-} // namespace winrt::OuterTune::implementation
+} // namespace winrt::EmberTune::implementation

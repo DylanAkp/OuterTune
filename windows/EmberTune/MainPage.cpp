@@ -9,7 +9,7 @@
 using namespace winrt;
 using namespace xaml;
 
-namespace winrt::OuterTune::implementation
+namespace winrt::EmberTune::implementation
 {
     MainPage::MainPage()
     {

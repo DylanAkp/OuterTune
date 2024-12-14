@@ -2,7 +2,7 @@
 #include "MainPage.g.h"
 #include <winrt/Microsoft.ReactNative.h>
 
-namespace winrt::OuterTune::implementation
+namespace winrt::EmberTune::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
@@ -10,7 +10,7 @@ namespace winrt::OuterTune::implementation
     };
 }
 
-namespace winrt::OuterTune::factory_implementation
+namespace winrt::EmberTune::factory_implementation
 {
     struct MainPage : MainPageT<MainPage, implementation::MainPage>
     {

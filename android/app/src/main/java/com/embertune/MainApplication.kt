@@ -1,4 +1,4 @@
-package com.outertune
+package com.embertune
 
 import android.app.Application
 import com.facebook.react.PackageList

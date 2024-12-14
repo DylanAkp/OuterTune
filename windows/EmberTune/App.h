@@ -6,7 +6,7 @@
 
 namespace activation = winrt::Windows::ApplicationModel::Activation;
 
-namespace winrt::OuterTune::implementation
+namespace winrt::EmberTune::implementation
 {
     struct App : AppT<App>
     {
@@ -18,4 +18,4 @@ namespace winrt::OuterTune::implementation
       private:
         using super = AppT<App>;
     };
-} // namespace winrt::OuterTune::implementation
+} // namespace winrt::EmberTune::implementation
