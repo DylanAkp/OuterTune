@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import "react-native-url-polyfill/auto"
 import { charts } from 'ytmusic_api_unofficial';
 import {
   SafeAreaView,
@@ -52,8 +53,7 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
-    
-    charts()
+    charts("US")
       .then((data) => {
         setChartData(JSON.stringify(data, null, 2));
       })
