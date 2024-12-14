@@ -1,3 +1,10 @@
+# ⚠️ OuterTune becomes EmberTune
+
+EmberTune will be faster, more optimized, and available on more platforms
+[EmberTune Repository](https://github.com/DylanAkp/EmberTune)
+
+
+
 # OuterTune
 
 <div align="center">
